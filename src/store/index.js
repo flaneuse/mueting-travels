@@ -167,7 +167,7 @@ export default new Vuex.Store({
             const value = 
               total > 6 ? "all" :
               total > 4 ? "five_six" :
-              total > 2 ? "two_four" :
+              total > 1 ? "two_four" :
               Tim ? "Tim" :
               Carla ? "Carla" :
               Sam ? "Sam" :
