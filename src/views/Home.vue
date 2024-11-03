@@ -8,32 +8,31 @@
       <div class="spinner-border text-primary ml-auto" role="status" aria-hidden="true"></div>
     </div>
 
-    <div class="d-flex mx-4">
+    <div class="d-flex mx-4 align-items-start">
       <table v-if="totals">
         <tr>
-          <th>
-              <v-checkbox
-                :input-value="isAllSelected"
-                :indeterminate="isIndeterminate"
-                @change="toggleSelectAll"
-              ></v-checkbox>
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            </tr>
+          <th class="px-2">
+            <v-checkbox :input-value="isAllSelected" :indeterminate="isIndeterminate"
+              @change="toggleSelectAll"></v-checkbox>
+          </th>
+          <th></th>
+          <th>total</th>
+          <th>completion</th>
+        </tr>
 
         <tr v-for="(person, pIdx) in people" :key="pIdx" class="text-right">
-          <td class="px-2">
+          <td class="px-2 m-0">
             <v-checkbox v-model="selectedPeople" label="" :value="person"></v-checkbox>
           </td>
 
           <td class="px-2">
-            <h3>{{ person }}</h3>
+            <h3 class="mb-0">{{ person }}</h3>
           </td>
-          <td class="px-2">
-            <h3>{{ totals[person]["total"] }}</h3>
+          <td class="px-2 pt-4 d-flex flex-column">
+            <h4 class="mb-0">{{ totals[person]["total"] }}</h4>
+            <div>
+              {{ totals[person]["percentFormatted"] }}
+            </div>
           </td>
           <td class="px-2">
             <svg :width="totalBarWidth" :height="totalBarHeight">
@@ -49,9 +48,6 @@
                 stroke="#ccc"></rect>
               <rect :width="totalBarWidth" :height="totalBarHeight" fill="none" stroke="#000"></rect>
             </svg>
-          </td>
-          <td>
-            {{ totals[person]["percentFormatted"] }} complete
           </td>
         </tr>
       </table>
@@ -128,7 +124,7 @@ export default {
     StateTotals: () => import( /* webpackPrefetch: true */ `@/components/StateTotals.vue`)
   },
   watch: {
-    selectedPeople(newValue){
+    selectedPeople(newValue) {
       // Adjust the header checkbox
       this.isAllSelected = newValue.length > 0;
       this.isIndeterminate = (newValue.length < this.people.length) && (newValue.length > 0);
@@ -173,7 +169,7 @@ export default {
       // data
       states: null,
 
-      totalBarWidth: 200,
+      totalBarWidth: 150,
       totalBarHeight: 25,
 
       // input options
@@ -287,5 +283,13 @@ export default {
 <style lang="scss" scoped>
 .mr-4 {
   margin-right: 2rem;
+}
+
+th {
+  height: 10px;
+  line-height: 10px;
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
 }
 </style>
