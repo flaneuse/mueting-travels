@@ -1,5 +1,5 @@
 <template>
-    <div class="summary">
+    <div class="summary overflow-scroll">
         <!-- State-by-state totals -->
     <StateTotals :data="stateTotals" :people="people" v-if="stateTotals" class="my-5" />
     </div>
@@ -14,6 +14,8 @@ export default {
     StateTotals: () => import( /* webpackPrefetch: true */ `@/components/StateTotals.vue`)
   },
   watch: {
+  },
+  mounted(){
   },
   methods: {
   },
