@@ -96,7 +96,21 @@ export default new Vuex.Store({
       }
     }
   },
-  mutations: {},
+  mutations: {
+    updateGeojson(state, selectedPeople) {
+      console.log('updating json')
+      console.log(selectedPeople)
+
+      state.geojson["features"].forEach(d => {
+        d["properties"]["fillColor"] = "Tim"
+      });
+
+      // Deep copy as a shim to force Vue to update
+      const payload = JSON.parse(JSON.stringify(state.geojson));
+
+      Object.assign(state.geojson, payload);
+    },
+  },
   actions: {
     fetchData(context) {
       context.state.loading = true;
@@ -185,6 +199,7 @@ export default new Vuex.Store({
             d["properties"]["Jenny"] = Jenny;
             d["properties"]["Nathan"] = Nathan;
             d["properties"]["fillColor"] = value; //this.colorPalette[value].color;
+            d["properties"]["hasVisited"] = ["Tim", "Sam"];
           }
         })
 

@@ -115,7 +115,7 @@ export default {
   },
   watch: {
     selectedPeople(newValue){
-      console.log(newValue)
+      store.commit('updateGeojson', newValue)
     }
   },
   data() {
@@ -145,7 +145,7 @@ export default {
       // data
       states: null,
 
-      totalBarWidth: 300,
+      totalBarWidth: 200,
       totalBarHeight: 25,
 
       // input options
@@ -251,8 +251,7 @@ export default {
   async created() {
     // load the state shapefile
     this.states = STATES;
-  },
-  methods: {}
+  }
 }
 </script>
 <style lang="scss" scoped>
