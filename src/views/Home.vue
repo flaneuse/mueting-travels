@@ -10,6 +10,20 @@
 
     <div class="d-flex mx-4">
       <table v-if="totals">
+        <tr>
+          <th>
+              <v-checkbox
+                :input-value="isAllSelected"
+                :indeterminate="isIndeterminate"
+                @change="toggleSelectAll"
+              ></v-checkbox>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </tr>
+
         <tr v-for="(person, pIdx) in people" :key="pIdx" class="text-right">
           <td class="px-2">
             <v-checkbox v-model="selectedPeople" label="" :value="person"></v-checkbox>
@@ -115,7 +129,21 @@ export default {
   },
   watch: {
     selectedPeople(newValue){
+      // Adjust the header checkbox
+      this.isAllSelected = newValue.length > 0;
+      this.isIndeterminate = (newValue.length < this.people.length) && (newValue.length > 0);
+
+      // update the map
       store.commit('updateGeojson', newValue)
+    }
+  },
+  methods: {
+    toggleSelectAll() {
+      if (this.isAllSelected) {
+        this.selectedPeople = []; // Deselect all
+      } else {
+        this.selectedPeople = this.people; // Select all
+      }
     }
   },
   data() {
@@ -149,7 +177,9 @@ export default {
       totalBarHeight: 25,
 
       // input options
-      selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"]
+      selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
+      isAllSelected: true,
+      isIndeterminate: false
     })
   },
   computed: {
