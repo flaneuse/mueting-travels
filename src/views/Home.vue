@@ -78,7 +78,7 @@
       <!-- TODO: merge in additional data? -->
       <!-- TODO: fix API Key -->
 
-      <div class="mx-4">
+      <div class="mx-4" v-if="!loading">
         <Legend :colorPalette="colorPalette" />
 
         <!-- :bounds="bounds" :max-bounds="maxBounds"> -->
@@ -124,6 +124,7 @@ export default {
   },
   watch: {
     selectedPeople(newValue) {
+      if(!this.loading){
       // Adjust the header checkbox
       this.isAllSelected = newValue.length > 0;
       this.isIndeterminate = (newValue.length < this.people.length) && (newValue.length > 0);
@@ -131,7 +132,7 @@ export default {
       // update the map
       store.commit('updateGeojson', newValue)
       store.commit('updateSelectedPeople', newValue)
-    }
+    }}
   },
   methods: {
     toggleSelectAll() {
