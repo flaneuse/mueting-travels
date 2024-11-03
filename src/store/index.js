@@ -41,6 +41,7 @@ export default new Vuex.Store({
   state: {
     loading: false,
     people: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
+    selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
     geojson: null,
     states: null,
     totals: null,
@@ -117,6 +118,9 @@ export default new Vuex.Store({
 
       Object.assign(state.geojson, payload);
     },
+    updateSelectedPeople(state, newSelected) {
+      state.selectedPeople = newSelected;
+    }
   },
   actions: {
     fetchData(context) {

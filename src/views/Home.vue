@@ -119,6 +119,9 @@ export default {
     LGeoJson,
     Legend: () => import(/* webpackPrefetch: true */ `@/components/Legend.vue`)
   },
+  mounted() {
+    this.selectedPeople = this.selectedPeopleStore
+  },
   watch: {
     selectedPeople(newValue) {
       // Adjust the header checkbox
@@ -127,6 +130,7 @@ export default {
 
       // update the map
       store.commit('updateGeojson', newValue)
+      store.commit('updateSelectedPeople', newValue)
     }
   },
   methods: {
@@ -169,7 +173,7 @@ export default {
       totalBarHeight: 25,
 
       // input options
-      selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
+      selectedPeople: [],
       isAllSelected: true,
       isIndeterminate: false
     })
@@ -180,6 +184,9 @@ export default {
     },
     people() {
       return store.state.people
+    },
+    selectedPeopleStore() {
+      return store.state.selectedPeople
     },
     geojson() {
       return store.state.geojson
