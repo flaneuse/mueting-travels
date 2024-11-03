@@ -7,19 +7,14 @@
       <strong class="mx-5">Loading...</strong>
       <div class="spinner-border text-primary ml-auto" role="status" aria-hidden="true"></div>
     </div>
-    <div class="d-flex">
-      <table v-if="totals" classs="mx-4">
+
+    <div class="d-flex mx-4">
+      <table v-if="totals">
         <tr v-for="(person, pIdx) in people" :key="pIdx" class="text-right">
           <td class="px-2">
-            <input type="checkbox" :id="person" :value="person" v-model="selectedPeople">
-
-            <v-checkbox v-model="selectedPeople" :label="person"></v-checkbox>
-
-            <label class="b-contain m-auto">
-              <input v-model="selectedPeople" :id="person" :value="person" type="checkbox" />
-              <div class="b-input" />
-            </label>
+            <v-checkbox v-model="selectedPeople" label="" :value="person"></v-checkbox>
           </td>
+
           <td class="px-2">
             <h3>{{ person }}</h3>
           </td>
@@ -73,7 +68,7 @@
       <!-- TODO: merge in additional data? -->
       <!-- TODO: fix API Key -->
 
-      <div>
+      <div class="mx-4">
         <Legend :colorPalette="colorPalette" />
 
         <!-- :bounds="bounds" :max-bounds="maxBounds"> -->
@@ -117,6 +112,11 @@ export default {
     LGeoJson,
     Legend: () => import(/* webpackPrefetch: true */ `@/components/Legend.vue`),
     StateTotals: () => import( /* webpackPrefetch: true */ `@/components/StateTotals.vue`)
+  },
+  watch: {
+    selectedPeople(newValue){
+      console.log(newValue)
+    }
   },
   data() {
     return ({
