@@ -98,11 +98,18 @@ export default new Vuex.Store({
   },
   mutations: {
     updateGeojson(state, selectedPeople) {
-      console.log('updating json')
-      console.log(selectedPeople)
-
       state.geojson["features"].forEach(d => {
-        d["properties"]["fillColor"] = "Tim"
+        const filtered = d.properties.hasVisited.filter(x => selectedPeople.includes(x));
+        const total = filtered.length;
+
+        const colorMap =           
+        total > 6 ? "all" :
+        total > 4 ? "five_six" :
+        total > 1 ? "two_four" :
+        total == 1 ? filtered[0] :
+        "unknown";
+
+        d["properties"]["fillColor"] = colorMap
       });
 
       // Deep copy as a shim to force Vue to update
@@ -191,6 +198,16 @@ export default new Vuex.Store({
               Nathan ? "Nathan" :
               "unknown";
 
+            const hasVisited = {
+              Tim: Tim,
+              Carla: Carla,
+              Sam: Sam,
+              Cody: Cody,
+              John: John,
+              Jenny: Jenny, 
+              Nathan: Nathan
+            }
+
             d["properties"]["Tim"] = Tim;
             d["properties"]["Carla"] = Carla;
             d["properties"]["Sam"] = Sam;
@@ -199,7 +216,7 @@ export default new Vuex.Store({
             d["properties"]["Jenny"] = Jenny;
             d["properties"]["Nathan"] = Nathan;
             d["properties"]["fillColor"] = value; //this.colorPalette[value].color;
-            d["properties"]["hasVisited"] = ["Tim", "Sam"];
+            d["properties"]["hasVisited"] = Object.keys(hasVisited).filter(key => hasVisited[key]);
           }
         })
 
