@@ -2,6 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
+// vuetify UI
+import vuetify from '././plugins/vuetify.ts';
+import 'vuetify/dist/vuetify.min.css';
+
 // leaflet
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -24,5 +28,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
