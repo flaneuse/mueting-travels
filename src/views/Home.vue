@@ -8,7 +8,7 @@
       <div class="spinner-border text-primary ml-auto" role="status" aria-hidden="true"></div>
     </div>
 
-    <div class="d-flex mx-4 align-items-start">
+    <div class="d-flex flex-wrap justify-content-center align-items-start mx-4">
       <table v-if="totals">
         <tr>
           <th class="px-2">
@@ -78,8 +78,8 @@
       <!-- TODO: merge in additional data? -->
       <!-- TODO: fix API Key -->
 
-      <div class="mx-4" v-if="!loading">
-        <Legend :colorPalette="colorPalette" />
+      <div class="d-flex flex-column mx-4" v-if="!loading">
+        <Legend :colorPalette="colorPalette" :maxWidth="width" />
 
         <!-- :bounds="bounds" :max-bounds="maxBounds"> -->
         <l-map :style="mapStyle" :zoom="zoom" :minZoom="minZoom" :maxZoom="maxZoom" :center="center">
@@ -120,7 +120,12 @@ export default {
     Legend: () => import(/* webpackPrefetch: true */ `@/components/Legend.vue`)
   },
   mounted() {
-    this.selectedPeople = this.selectedPeopleStore
+    this.selectedPeople = this.selectedPeopleStore;
+
+    // set width
+    const calcWidth = window.innerWidth - this.tableWidth;
+    this.width = calcWidth < this.minWidth ? window.innerWidth : calcWidth;
+    
   },
   watch: {
     selectedPeople(newValue) {
@@ -146,7 +151,10 @@ export default {
   data() {
     return ({
       fillOpacity: 0.6,
+      width: null, // width of map in px
+      minWidth: 400,
       height: 800, // height of map in px
+      tableWidth: 500, // width of table in px
 
       // basemaps
       url: 'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png',
@@ -199,7 +207,7 @@ export default {
       return store.state.colorPalette
     },
     mapStyle() {
-      return (`height: ${this.height}px`)
+      return (`height: ${this.height}px; width: ${this.width}px`)
     },
     options() {
       return {
