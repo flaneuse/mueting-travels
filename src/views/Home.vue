@@ -93,9 +93,6 @@
 
       </div>
     </div>
-    <!-- State-by-state totals -->
-    <StateTotals :data="stateTotals" :people="people" v-if="stateTotals" class="my-5" />
-
   </div>
 
 </template>
@@ -120,8 +117,7 @@ export default {
     LMap,
     LTileLayer,
     LGeoJson,
-    Legend: () => import(/* webpackPrefetch: true */ `@/components/Legend.vue`),
-    StateTotals: () => import( /* webpackPrefetch: true */ `@/components/StateTotals.vue`)
+    Legend: () => import(/* webpackPrefetch: true */ `@/components/Legend.vue`)
   },
   watch: {
     selectedPeople(newValue) {
@@ -190,9 +186,6 @@ export default {
     },
     totals() {
       return store.state.totals
-    },
-    stateTotals() {
-      return store.state.stateTotals
     },
     colorPalette() {
       return store.state.colorPalette

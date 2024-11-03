@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link> 
+      <span class="mx-4">|</span>
+      <router-link to="/totals">Totals</router-link>
+      <span class="mx-4">|</span>
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
