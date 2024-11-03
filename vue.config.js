@@ -2,5 +2,9 @@ const bootstrapSassAbstractsImports = require('vue-cli-plugin-bootstrap-vue/sass
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
   ? '/mueting-travels/'
-  : '/'
+  : '/',
+
+  transpileDependencies: [
+    'vuetify'
+  ]
 }

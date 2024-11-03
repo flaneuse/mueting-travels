@@ -2,10 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-// vuetify UI
-import vuetify from '././plugins/vuetify.ts';
-import 'vuetify/dist/vuetify.min.css';
-
 // leaflet
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -20,6 +16,7 @@ import { BootstrapVue } from 'bootstrap-vue'
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vuetify from './plugins/vuetify'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
