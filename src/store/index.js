@@ -40,8 +40,8 @@ const calcTotal = function(results, person, totalCounties, totalBarWidth = 300) 
 export default new Vuex.Store({
   state: {
     loading: false,
-    people: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
-    selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan"],
+    people: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan", "Elise"],
+    selectedPeople: ["Tim", "Carla", "Sam", "Cody", "John", "Jenny", "Nathan", "Elise"],
     geojson: null,
     states: null,
     totals: null,
@@ -52,9 +52,9 @@ export default new Vuex.Store({
         color: "#373434",
         label: "all"
       },
-      "five_six": {
+      "five_seven": {
         color: "#612e09",
-        label: "5-6 people"
+        label: "5-7 people"
       },
       "two_four": {
         color: "#ac5c22",
@@ -91,6 +91,10 @@ export default new Vuex.Store({
         color: "#f781bf",
         label: "Nathan"
       },
+      "Elise": {
+        color: "#f0f000",
+        label: "Elise"
+      },
       "unknown": {
         color: "#ddddd8",
         label: "no one"
@@ -103,9 +107,9 @@ export default new Vuex.Store({
         const filtered = d.properties.hasVisited.filter(x => selectedPeople.includes(x));
         const total = filtered.length;
 
-        const colorMap =           
-        total > 6 ? "all" :
-        total > 4 ? "five_six" :
+        const colorMap =
+        total > 7 ? "all" :
+        total > 4 ? "five_seven" :
         total > 1 ? "two_four" :
         total == 1 ? filtered[0] :
         "unknown";
@@ -184,14 +188,15 @@ export default new Vuex.Store({
             const John = filtered[0].John === "1";
             const Jenny = filtered[0].Jenny === "1";
             const Nathan = filtered[0].Nathan === "1";
+            const Elise = filtered[0].Elise === "1";
 
-            const total = Tim + Carla + Sam + Cody + John + Jenny + Nathan;
-    
+            const total = Tim + Carla + Sam + Cody + John + Jenny + Nathan + Elise;
+
 
             // calculating the color
-            const value = 
-              total > 6 ? "all" :
-              total > 4 ? "five_six" :
+            const value =
+              total > 7 ? "all" :
+              total > 4 ? "five_seven" :
               total > 1 ? "two_four" :
               Tim ? "Tim" :
               Carla ? "Carla" :
@@ -200,6 +205,7 @@ export default new Vuex.Store({
               John ? "John" :
               Jenny ? "Jenny" :
               Nathan ? "Nathan" :
+              Elise ? "Elise" :
               "unknown";
 
             const hasVisited = {
@@ -208,8 +214,9 @@ export default new Vuex.Store({
               Sam: Sam,
               Cody: Cody,
               John: John,
-              Jenny: Jenny, 
-              Nathan: Nathan
+              Jenny: Jenny,
+              Nathan: Nathan,
+              Elise: Elise
             }
 
             d["properties"]["Tim"] = Tim;
@@ -219,6 +226,7 @@ export default new Vuex.Store({
             d["properties"]["John"] = John;
             d["properties"]["Jenny"] = Jenny;
             d["properties"]["Nathan"] = Nathan;
+            d["properties"]["Elise"] = Elise;
             d["properties"]["fillColor"] = value; //this.colorPalette[value].color;
             d["properties"]["hasVisited"] = Object.keys(hasVisited).filter(key => hasVisited[key]);
           }

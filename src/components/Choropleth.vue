@@ -126,6 +126,9 @@ export default {
           <div>
           Nathan: ${feature.properties.Nathan ? '<i class="fas fa-square"></i>' : '<i class="far fa-square"></i>'}
           </div>
+          <div>
+          Elise: ${feature.properties.Elise ? '<i class="fas fa-square"></i>' : '<i class="far fa-square"></i>'}
+          </div>
           land area: ${feature.properties.ALAND.toLocaleString()} sq. m
           </div>
           </div>
